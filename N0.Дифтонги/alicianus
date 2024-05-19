@@ -1,0 +1,60 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+int main() {
+    std::ifstream input("input.txt");
+    std::ofstream output("output.txt");
+
+    std::string s;
+    int max = 0, count, current;
+
+    input >> count;
+    input.ignore();
+
+    for (int i = 0; i < count; ++i) {
+        std::getline(input, s);
+        current = 0;
+        for (int j = 0; j < s.length(); ++j) {
+            if ((s[j] == 'a' || s[j] == 'e' || s[j] == 'i' || s[j] == 'o' || s[j] == 'u' || s[j] == 'y') &&
+                (j + 1 < s.length()) &&
+                (s[j + 1] == 'a' || s[j + 1] == 'e' || s[j + 1] == 'i' || s[j + 1] == 'o' || s[j + 1] == 'u' || s[j + 1] == 'y') &&
+                ((j == 0) || (s[j - 1] != 'a' && s[j - 1] != 'e' && s[j - 1] != 'i' && s[j - 1] != 'o' && s[j - 1] != 'u' && s[j - 1] != 'y')) &&
+                ((j + 2 >= s.length()) || (s[j + 2] != 'a' && s[j + 2] != 'e' && s[j + 2] != 'i' && s[j + 2] != 'o' && s[j + 2] != 'u' && s[j + 2] != 'y'))
+            ) {
+                current++;
+            }
+        }
+        if (current > max) {
+            max = current;
+        }
+    }
+
+    input.clear();
+    input.seekg(0);
+    input >> count;
+    input.ignore();
+
+    for (int i = 0; i < count; ++i) {
+        std::getline(input, s);
+        current = 0;
+        for (int j = 0; j < s.length(); ++j) {
+            if ((s[j] == 'a' || s[j] == 'e' || s[j] == 'i' || s[j] == 'o' || s[j] == 'u' || s[j] == 'y') &&
+                (j + 1 < s.length()) &&
+                (s[j + 1] == 'a' || s[j + 1] == 'e' || s[j + 1] == 'i' || s[j + 1] == 'o' || s[j + 1] == 'u' || s[j + 1] == 'y') &&
+                ((j == 0) || (s[j - 1] != 'a' && s[j - 1] != 'e' && s[j - 1] != 'i' && s[j - 1] != 'o' && s[j - 1] != 'u' && s[j - 1] != 'y')) &&
+                ((j + 2 >= s.length()) || (s[j + 2] != 'a' && s[j + 2] != 'e' && s[j + 2] != 'i' && s[j + 2] != 'o' && s[j + 2] != 'u' && s[j + 2] != 'y'))
+            ) {
+                current++;
+            }
+        }
+        if (current == max) {
+            output << s << std::endl;
+        }
+    }
+
+    input.close();
+    output.close();
+
+    return 0;
+}
